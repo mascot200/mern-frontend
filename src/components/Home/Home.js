@@ -14,7 +14,7 @@ import '../../index.css'
 const Home = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const [postId, setPostId] = useState()
+    const [postId, setPostId] = useState(0)
   
   
     useEffect(() => {

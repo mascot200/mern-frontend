@@ -38,9 +38,12 @@ const Post = ({post, setPostId }) => {
             </div>
 
             <div className={classes.overlay2}>
+                { user?.result._id === post.creator || user?.result.googleId === post.creator && (
+
                 <Button style={{color:'white'}} size="small" onClick={() => setPostId(post._id)}>
                     <MoreHorizIcon fontSize="medium" />
                 </Button>
+                )}
             </div>
 
             <div className={classes.details}>
@@ -55,15 +58,16 @@ const Post = ({post, setPostId }) => {
                 </Typography>
             </CardContent>
 
-             <CardActions className={classes.cardActions}>
+            <CardActions className={classes.cardActions}>
              <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
               <Likes />
              </Button>
-
-                 <Button  size="small" color="default" onClick={() => dispatch(deletePost(post._id))}>
-                     <DeleteIcon fontSize="small" />
-                   
-                 </Button>
+             {user?.result?.googleId === post?.creator || user?.result?._id === post?.creator && (
+                <Button  size="small" color="default" onClick={() => dispatch(deletePost(post._id))}>
+                    <DeleteIcon fontSize="small" />
+                
+                </Button>
+                )}
             </CardActions>
        </Card>
     );

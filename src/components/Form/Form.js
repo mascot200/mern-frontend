@@ -14,16 +14,17 @@ const Form = ({setPostId, postId}) => {
     const [postData, setPostData] = useState( { title: '', message: '', tags: '',  selectedFile: '', });
     const post = useSelector((state) => postId ? state.posts.find((p) => p._id === postId) : null)
     const user = JSON.parse(localStorage.getItem('profile'))
-    const [submit, setSubmit] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         if(post) setPostData(post)
     }, [post])
 
     const handleSubmit = async (e) => {
+       setIsLoading(true)
        e.preventDefault();
        if(postId === 0){
-           dispatch(createPost({ ...postData, name: user?.result?.name}));
-           clear()
+            dispatch(createPost({ ...postData, name: user?.result?.name}));
+            clear()
        }else{
           dispatch(updatePost(postId, { ...postData, name: user?.result?.name}));
           clear()
@@ -32,7 +33,7 @@ const Form = ({setPostId, postId}) => {
     }
 
     const clear = () => {
-        setPostId(null)
+        setPostId(0)
         setPostData({ title: '', message: '', tags: '',  selectedFile: '', })
     }
 
@@ -91,7 +92,7 @@ const Form = ({setPostId, postId}) => {
                          />
                      </div>
      
-                     <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit    <CircularProgress /> </Button>
+                     <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit {isLoading ?  <CircularProgress   /> : ""}   </Button>
                      <Button  variant="contained" color="secondary" size="large" onClick={clear}  fullWidth>Clear</Button>
                   
                 </form>

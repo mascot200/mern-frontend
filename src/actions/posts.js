@@ -26,16 +26,17 @@ export const updatePost = (id, post) => async (dispatch) => {
   try {
     const { data } = await api.updatePost(id, post);
 
-    dispatch({ type: UPDATE, payload: data });
+    dispatch({ type: UPDATE,  data });
   } catch (error) {
     console.log(error);
   }
 };
 
 export const deletePost = (id) =>  async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem('profile'));
   try {
-    await api.deletePost(id)
-    dispatch({ type: DELETE, payload:id})
+    await api.deletePost(id,user?.token)
+    dispatch({ type: DELETE })
   } catch (error) {
     console.log(error);
   }
