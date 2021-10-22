@@ -40,6 +40,7 @@ const  Navbar = () => {
         <Link to="/" className={classes.brandContainer}>
         <Typography className={classes.userName} variant="h6">Memory</Typography>
         </Link>
+       
         <Toolbar className={classes.toolbar}>
           {user?.result ? (
             <div className={classes.profile}>
