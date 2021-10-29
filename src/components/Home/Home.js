@@ -44,21 +44,17 @@ const Home = () => {
         }
     }
   
-  
-    useEffect(() => {
-      dispatch(getPosts());
-    }, [postId, dispatch]);
 
     
     return (
         <Grow in>
         <Container maxWidth="xl">
           <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
-              <Grid item xs={12} sm={6} md={7}>
+              <Grid item xs={12} sm={6} md={7} xl={5}>
                 <Posts    setPostId={setPostId}/>
               </Grid>
 
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3} xl={5}>
                 <AppBar className={classes.appBarSearch} position="static" color="inherit">
                   <TextField
                     name="search"
@@ -71,9 +67,12 @@ const Home = () => {
                   <Button onClick={searchPost} variant="contained" className={classes.searchButton} color="primary">Search</Button>
                 </AppBar>
                 <Form  postId={postId} setPostId={setPostId}/>
-                <Paper elevation={6}>
-                  <Pagination />
-              </Paper>
+                { (!searchQuery) && (
+
+                <Paper elevation={6} className={classes.pagination}>
+                  <Pagination page={page} />
+                </Paper>
+                )}
               </Grid>
              
           </Grid>

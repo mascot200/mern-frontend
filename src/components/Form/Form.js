@@ -47,7 +47,7 @@ const Form = ({setPostId, postId}) => {
         )
     }else{
         return (
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={6}>
                 <form autoComplete="off" noValidate className={classes.form} onSubmit={handleSubmit}>
                      <Typography variant="h5">{postId ? 'Editing' : 'Creating'} a Memory</Typography>
                      

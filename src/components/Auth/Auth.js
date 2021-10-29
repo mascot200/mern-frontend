@@ -47,8 +47,10 @@ const Auth = () => {
       const result = res?.profileObj;
       const token = res?.tokenId; //
         try {
+            dispatch({type: "START_LOADING"})
             dispatch({ type: "AUTH", data: { result, token } });
             history.push('/')
+            dispatch({type: "END_LOADING"})
         } catch (error) {
             console.error(error)
         }
