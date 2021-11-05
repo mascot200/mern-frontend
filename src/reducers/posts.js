@@ -1,4 +1,4 @@
-import { FETCH_ALL,FETCH_SINGLE_POST, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING} from '../constants/actionTypes';
+import { FETCH_ALL,FETCH_SINGLE_POST,CREATE_COMMENT, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING} from '../constants/actionTypes';
 // these post state is an object with isLoading state and post object, 
 // The initial state of isLoading for post is false 
 export default (state = { isLoading: true, posts: []}, action) => {
@@ -21,7 +21,11 @@ export default (state = { isLoading: true, posts: []}, action) => {
             return { ...state, posts: [ ...state.posts, action.payload] }
         case UPDATE:
             return { ...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))};
-
+        case CREATE_COMMENT: 
+            return { ...state, posts: state.posts.map((post) => {
+                if(post._id === action.payload._id) return action.payload;
+                 return post;
+            })}
         case DELETE:
             return { ...state, posts: state.posts.filter((post) => post._id !== action.payload._id)}
         case LIKE:
