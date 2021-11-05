@@ -3,6 +3,7 @@ import useStyles from './styles'
 import { TextField, Button, Typography, Paper, CircularProgress } from '@material-ui/core'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 
 import { createPost, updatePost} from '../../actions/posts'
@@ -15,6 +16,9 @@ const Form = ({setPostId, postId}) => {
     const post = useSelector((state) => postId ? state.posts.find((p) => p._id === postId) : null)
     const user = JSON.parse(localStorage.getItem('profile'))
     const [isLoading, setIsLoading] = useState(false)
+    const history = useHistory()
+
+
     useEffect(() => {
         if(post) setPostData(post)
     }, [post])
@@ -23,7 +27,7 @@ const Form = ({setPostId, postId}) => {
        setIsLoading(true)
        e.preventDefault();
        if(postId === 0){
-            dispatch(createPost({ ...postData, name: user?.result?.name}));
+            dispatch(createPost({ ...postData, name: user?.result?.name}, history));
             clear()
        }else{
           dispatch(updatePost(postId, { ...postData, name: user?.result?.name}));

@@ -45,7 +45,7 @@ const Post = ({post, setPostId }) => {
             </div>
 
             <div className={classes.overlay2}>
-                { user?.result._id === post?.creator || user?.result.googleId === post?.creator && (
+                { user?.result?._id === post?.creator || user?.result.googleId === post?.creator && (
 
                 <Button style={{color:'white'}} size="small" onClick={() => setPostId(post?._id)}>
                     <MoreHorizIcon fontSize="medium" />
@@ -67,7 +67,7 @@ const Post = ({post, setPostId }) => {
             </ButtonBase>
 
             <CardActions className={classes.cardActions}>
-             <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+             <Button size="small" color="primary" disabled={!user?.result?._id} onClick={() => dispatch(likePost(post._id))}>
               <Likes />
              </Button>
              {user?.result?.googleId === post?.creator || user?.result?._id === post?.creator && (
